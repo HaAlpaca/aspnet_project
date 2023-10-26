@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="position-relative d-flex justify-content-center align-items-center">
+    <video src="@Url.Content("~/video/trailer.mp4")" muted loop autoplay class="w-100 h-100 bg-opacity-10">
+    </video>
+    <div class="position-absolute bg-black w-100 h-100 bg-opacity-50 d-flex justify-content-center align-items-center flex-column">
+        <h1 class="text-warning display-1"><strong>Golden Ticket</strong></h1>
+        <p class="text-white w-50 text-center">
+            The #1 app to watch, clip, and share your awesome gaming moments
+            with your friends and the world! With our world-class tools, we make
+            it incredibly easy to share your videos. Get started today!
+        </p>
+        <div class="btn btn-outline-info"><a class="text-warning" asp-controller="Movies" asp-action="Index" style="text-decoration:none">Explore</a></div>
+    </div>
+
+</section>
