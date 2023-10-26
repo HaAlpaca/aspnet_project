@@ -62,7 +62,7 @@ namespace WebProject.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var movieDetails = await _service.GetMovieByIdAsync(id);
-            if (movieDetails == null) return View("NotFound");
+            if (movieDetails == null) return View("Empty");
 
             var response = new NewMovieVM()
             {
