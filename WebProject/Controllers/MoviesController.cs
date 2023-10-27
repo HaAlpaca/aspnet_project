@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.Internal;
+using System;
 using WebProject.Data;
 using WebProject.Data.Roles;
 using WebProject.Data.Services;
@@ -11,6 +12,7 @@ using WebProject.Models;
 
 namespace WebProject.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
     public class MoviesController: Controller
     {
         private readonly IMoviesService _service;
@@ -18,13 +20,13 @@ namespace WebProject.Controllers
         {
             _service = service;
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var allMovies = await _service.GetAllAsync(n => n.Cinema);
             return View(allMovies);
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var movieDetail = await _service.GetMovieByIdAsync(id);
@@ -123,6 +125,28 @@ namespace WebProject.Controllers
 
             return View("Index", allMovies);
         }
+        [AllowAnonymous]
 
+        public async Task<IActionResult> FormSelectFillter(string ItemSelected)
+        {
+
+            var allMovies = await _service.GetAllAsync(n => n.Cinema);
+            if (ItemSelected == "1")
+            {
+                var filterResult = allMovies.Where(n => DateTime.Now >= n.StartDate && DateTime.Now <= n.EndDate).ToList();
+                return View("Index", filterResult);
+            }
+            else if (ItemSelected == "2")
+            {
+                var filterResult = allMovies.Where(n => DateTime.Now > n.EndDate).ToList();
+                return View("Index", filterResult);
+            }
+            else if (ItemSelected == "3")
+            {
+                var filterResult = allMovies.Where(n => DateTime.Now > n.StartDate ).ToList();
+                return View("Index", filterResult);
+            }
+            return View("Index", allMovies);
+        }
     }
 }

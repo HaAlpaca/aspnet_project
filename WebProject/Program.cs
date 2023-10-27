@@ -45,10 +45,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthorization();
 app.UseSession();
 
 app.UseAuthentication();
+app.UseAuthorization();
+
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",

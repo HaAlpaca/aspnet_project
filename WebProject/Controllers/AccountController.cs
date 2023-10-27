@@ -46,7 +46,7 @@ namespace WebProject.Controllers
 
         public IActionResult Register() => View(new RegisterVM());
         [HttpPost]
-        public async Task<IActionResult> Create(RegisterVM registerVM)
+        public async Task<IActionResult> Register(RegisterVM registerVM)
         {
             if (!ModelState.IsValid) return View(registerVM);
 
@@ -79,6 +79,12 @@ namespace WebProject.Controllers
         {
             var user = await _context.Users.ToListAsync();
             return View(user);
+        }
+
+        
+        public IActionResult AccessDenied(string URL)
+        {
+            return View(URL);
         }
     }
 }

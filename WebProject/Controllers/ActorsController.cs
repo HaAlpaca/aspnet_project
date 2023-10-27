@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using WebProject.Data.Roles;
 using WebProject.Data.Services;
 using WebProject.Models;
 
 namespace WebProject.Controllers
 {
+    [Authorize(Roles = UserRoles.Admin)]
 
     public class ActorsController : Controller
     {
@@ -13,7 +15,7 @@ namespace WebProject.Controllers
         {
             _service = service;
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var data = await _service.GetAllAsync();
@@ -36,6 +38,7 @@ namespace WebProject.Controllers
             await _service.AddAsync(actor);
             return RedirectToAction(nameof(Index));
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var actorDetails = await _service.GetByIdAsync(id);
