@@ -9,14 +9,12 @@
         <p>
             <h4>Sign up</h4>
         </p>
-
         @if (TempData["Error"] != null)
         {
             <div class="col-md-12 alert alert-danger">
                 <span><b>Sorry!</b> - @TempData["Error"] </span>
             </div>
         }
-
         <div class="row">
             <div class="col-md-8 offset-2">
                 <form asp-action="Register">
@@ -48,7 +46,6 @@
                             <a class="btn btn-outline-secondary" asp-controller="Movies" asp-action="Index">Cancel</a>
                         </div>
                     </div>
-                    
                 </form>
             </div>
         </div>

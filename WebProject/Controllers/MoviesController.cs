@@ -21,10 +21,25 @@ namespace WebProject.Controllers
             _service = service;
         }
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
             var allMovies = await _service.GetAllAsync(n => n.Cinema);
-            return View(allMovies);
+
+            int totalItems = allMovies.Count();
+            int pageSize = (int)Math.Ceiling((double)totalItems / 3);
+            int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+            var paginatedData = allMovies.Skip((page - 1) * pageSize).Take(pageSize);
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = totalPages;
+
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_PartialIndex", paginatedData);
+            }
+
+            return View(paginatedData);
         }
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
@@ -119,12 +134,16 @@ namespace WebProject.Controllers
                 //var filteredResult = allMovies.Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower())).ToList();
 
                 var filteredResultNew = allMovies.Where(n => string.Equals(n.Name, SearchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.Description, SearchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
-
-                return View("Index", filteredResultNew);
+                if (filteredResultNew.Count() == 0) {
+                    return View("Index", allMovies);
+                }
+                return View("_PartialIndex", filteredResultNew);
             }
-
             return View("Index", allMovies);
         }
+
+
+
         [AllowAnonymous]
 
         public async Task<IActionResult> FormSelectFillter(string ItemSelected)

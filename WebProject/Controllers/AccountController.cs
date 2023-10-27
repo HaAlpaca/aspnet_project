@@ -19,6 +19,7 @@ namespace WebProject.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
+
         public IActionResult Login() => View(new LoginVM());
         [HttpPost]
         public async Task<IActionResult> Login(LoginVM loginVM)
