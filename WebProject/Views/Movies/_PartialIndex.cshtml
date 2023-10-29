@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<Movie>
-
 @foreach (var item in Model)
 {
-    <div class="col-md-4 col-xs-6 border-primary mb-3">
-        <div class="card mb-3" style="max-width: 540px;">
+    <div class="col-md-4 border-primary mb-3">
+        <div class="card mb-3 h-100 position-relative">
             <div class="row g-0">
                 <div class="col-md-12">
                     <div class="card-header text-white bg-info">
@@ -46,16 +45,19 @@
 
                     </div>
                 </div>
-                <div class="col-md-12">
-                    <div class="card-footer ">
-                        <p class="card-text">
-                            <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.Id">
-                                <i class="bi bi-eye-fill"></i> Show Details
+                <div style="height: 150px;"></div>
+                <div class="col-md-12 position-absolute bottom-0 start-50 translate-middle-x">
+                    <div class="card-footer d-flex flex-wrap justify-content-center col-md-12">
+                        <div class="card-text col-md-12">
+                            <a class="btn btn-outline-primary w-100 m-2" asp-action="Details" asp-route-id="@item.Id">
+                                Show Details
                             </a>
-                            <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
-                                <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.Price.ToString("c"))
+                        </div>
+                        <div class="card-text col-md-12">
+                            <a class="btn btn-success text-white w-100 m-2" asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Id">
+                                <i class="bi bi-cart-plus"></i> Add to Cart <br> (Price @item.Price.ToString("c"))
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,24 +65,25 @@
     </div>
 }
 
+
 <nav class="pagination justify-content-center">
     <ul class="pagination justify-content-center">
         @if (ViewBag.CurrentPage > 1)
         {
             int i = ViewBag.CurrentPage - 1;
-            <li class="page-item "><a class="page-link pagination-link" data-page="@i" data-ItemSelected="@ViewBag.ItemSelected">Previous</a> </li>
+            <li class="page-item pagination-link" data-page="@i"><a class="page-link">Previous</a> </li>
         }
         @if (ViewBag.TotalPages > 1)
         {
             for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
-                <li class="page-item pagination-link" data-page="@i" data-ItemSelected="@ViewBag.ItemSelected"><a class="page-link">@i</a> </li>
+                <li class="page-item pagination-link" data-page="@i"><a class="page-link">@i</a> </li>
             }
         }
         @if (ViewBag.CurrentPage < ViewBag.TotalPages)
         {
             int i = ViewBag.CurrentPage + 1;
-            <li class="page-item pagination-link" data-page="@i" data-ItemSelected="@ViewBag.ItemSelected"><a class="page-link">Next</a> </li>
+            <li class="page-item pagination-link" data-page="@i"><a class="page-link">Next</a> </li>
         }
     </ul>
 </nav>
