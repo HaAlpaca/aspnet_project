@@ -20,7 +20,6 @@ D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\staticwebassets
 D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\staticwebassets.pack.json
 D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\staticwebassets.build.json
 D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\staticwebassets.development.json
-D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\scopedcss\bundle\WebProject.styles.css
 D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\scopedcss\projectbundle\WebProject.bundle.scp.css
 D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\WebProject.dll
@@ -91,3 +90,4 @@ D:\CodeSpace\VisualStudio\WebProject\WebProject\bin\Debug\net6.0\Microsoft.AspNe
 D:\CodeSpace\VisualStudio\WebProject\WebProject\bin\Debug\net6.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\CodeSpace\VisualStudio\WebProject\WebProject\bin\Debug\net6.0\Microsoft.Extensions.Identity.Core.dll
 D:\CodeSpace\VisualStudio\WebProject\WebProject\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
+D:\CodeSpace\VisualStudio\WebProject\WebProject\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css

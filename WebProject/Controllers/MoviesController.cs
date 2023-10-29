@@ -13,7 +13,7 @@ using WebProject.Models;
 namespace WebProject.Controllers
 {
     [Authorize(Roles = UserRoles.Admin)]
-    public class MoviesController: Controller
+    public class MoviesController : Controller
     {
         private readonly IMoviesService _service;
         public MoviesController(IMoviesService service)
@@ -21,18 +21,32 @@ namespace WebProject.Controllers
             _service = service;
         }
         [AllowAnonymous]
-        public async Task<IActionResult> Index(int page = 1)
+        public async Task<IActionResult> Index(int ItemSelected, int page = 1)
         {
             var allMovies = await _service.GetAllAsync(n => n.Cinema);
-
-            int totalItems = allMovies.Count();
-            int pageSize = (int)Math.Ceiling((double)totalItems / 3);
+            IEnumerable<Movie> filterResult = allMovies;
+            if (ItemSelected == 0) filterResult = allMovies;
+            else if (ItemSelected == 1)
+            {
+                filterResult = allMovies.Where(n => DateTime.Now >= n.StartDate && DateTime.Now <= n.EndDate).ToList();
+            }
+            else if (ItemSelected == 2)
+            {
+                filterResult = allMovies.Where(n => DateTime.Now > n.EndDate).ToList();
+            }
+            else if (ItemSelected == 3)
+            {
+                filterResult = allMovies.Where(n => DateTime.Now < n.StartDate).ToList();
+            }
+            int totalItems = filterResult.Count();
+            int pageSize = 3;
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 
-            var paginatedData = allMovies.Skip((page - 1) * pageSize).Take(pageSize);
+            var paginatedData = filterResult.Skip((page - 1) * pageSize).Take(pageSize);
 
             ViewBag.CurrentPage = page;
             ViewBag.TotalPages = totalPages;
+            ViewBag.ItemSelected = ItemSelected;
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
@@ -134,36 +148,11 @@ namespace WebProject.Controllers
                 //var filteredResult = allMovies.Where(n => n.Name.ToLower().Contains(searchString.ToLower()) || n.Description.ToLower().Contains(searchString.ToLower())).ToList();
 
                 var filteredResultNew = allMovies.Where(n => string.Equals(n.Name, SearchString, StringComparison.CurrentCultureIgnoreCase) || string.Equals(n.Description, SearchString, StringComparison.CurrentCultureIgnoreCase)).ToList();
-                if (filteredResultNew.Count() == 0) {
+                if (filteredResultNew.Count() == 0)
+                {
                     return View("Index", allMovies);
                 }
                 return View("_PartialIndex", filteredResultNew);
-            }
-            return View("Index", allMovies);
-        }
-
-
-
-        [AllowAnonymous]
-
-        public async Task<IActionResult> FormSelectFillter(string ItemSelected)
-        {
-
-            var allMovies = await _service.GetAllAsync(n => n.Cinema);
-            if (ItemSelected == "1")
-            {
-                var filterResult = allMovies.Where(n => DateTime.Now >= n.StartDate && DateTime.Now <= n.EndDate).ToList();
-                return View("Index", filterResult);
-            }
-            else if (ItemSelected == "2")
-            {
-                var filterResult = allMovies.Where(n => DateTime.Now > n.EndDate).ToList();
-                return View("Index", filterResult);
-            }
-            else if (ItemSelected == "3")
-            {
-                var filterResult = allMovies.Where(n => DateTime.Now > n.StartDate ).ToList();
-                return View("Index", filterResult);
             }
             return View("Index", allMovies);
         }

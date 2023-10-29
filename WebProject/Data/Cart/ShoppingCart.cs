@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebProject.Models;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.AspNetCore.Authorization;
+using WebProject.Data.Roles;
 
 namespace WebProject.Data.Cart
 {
+
     public class ShoppingCart
     {
         public AppDbContext _context { get; set; }

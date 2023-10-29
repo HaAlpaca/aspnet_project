@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Movie>
+
 @foreach (var item in Model)
 {
     <div class="col-md-4 col-xs-6 border-primary mb-3">
@@ -62,25 +63,24 @@
     </div>
 }
 
-
 <nav class="pagination justify-content-center">
     <ul class="pagination justify-content-center">
         @if (ViewBag.CurrentPage > 1)
         {
             int i = ViewBag.CurrentPage - 1;
-            <li class="page-item pagination-link" data-page="@i"><a class="page-link">Previous</a> </li>
+            <li class="page-item "><a class="page-link pagination-link" data-page="@i" data-ItemSelected="@ViewBag.ItemSelected">Previous</a> </li>
         }
         @if (ViewBag.TotalPages > 1)
         {
             for (int i = 1; i <= ViewBag.TotalPages; i++)
             {
-                <li class="page-item pagination-link" data-page="@i"><a class="page-link">@i</a> </li>
+                <li class="page-item pagination-link" data-page="@i" data-ItemSelected="@ViewBag.ItemSelected"><a class="page-link">@i</a> </li>
             }
         }
         @if (ViewBag.CurrentPage < ViewBag.TotalPages)
         {
             int i = ViewBag.CurrentPage + 1;
-            <li class="page-item pagination-link" data-page="@i"><a class="page-link">Next</a> </li>
+            <li class="page-item pagination-link" data-page="@i" data-ItemSelected="@ViewBag.ItemSelected"><a class="page-link">Next</a> </li>
         }
     </ul>
 </nav>

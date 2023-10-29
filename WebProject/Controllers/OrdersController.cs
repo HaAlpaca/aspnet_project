@@ -8,6 +8,7 @@ using WebProject.Data.ViewModel;
 
 namespace WebProject.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly IMoviesService _moviesService;
